@@ -49,10 +49,65 @@ const questions = [
       name: "email",
       message: "Enter your email address:",
     },
-  ];
+];
+
+function renderLicenseBadge(license) {
+    if (license === "None") return "";
+    return `![License](https://img.shields.io/badge/license-${license.replace(
+      " ",
+      "%20"
+    )}-blue)`;
+}
+  
+function generateReadme(answers) {
+    return `
+        # ${answers.title}
+        
+        ${renderLicenseBadge(answers.license)}
+        
+        ## Description
+        ${answers.description}
+        
+        ## Table of Contents
+        - [Installation](#installation)
+        - [Usage](#usage)
+        - [License](#license)
+        - [Contributing](#contributing)
+        - [Tests](#tests)
+        - [Questions](#questions)
+        
+        ## Installation
+        ${answers.installation}
+        
+        ## Usage
+        ${answers.usage}
+        
+        ## License
+        This project is licensed under the ${answers.license} license.
+        
+        ## Contributing
+        ${answers.contributing}
+        
+        ## Tests
+        ${answers.tests}
+        
+        ## Questions
+        If you have any questions, you can reach me via:
+        - GitHub: [${answers.github}](https://github.com/${answers.github})
+        - Email: ${answers.email}
+    `;
+}
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) => {
+      if (err) {
+        console.error("Error writing to file:", err);
+      } else {
+        console.log("README.md has been successfully generated!");
+      }
+    });
+  }
 
 // TODO: Create a function to initialize app
 function init() {}
